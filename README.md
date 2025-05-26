@@ -34,6 +34,34 @@ return Application::configure(basePath: dirname(__DIR__))
     })->create();
 ```
 
+### ✅ Step 4: `config/auth.php` 수정
+```php
+'guards' => [
+        'web' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
+    ],
+```
+
+### ✅ Step 5: `Models/User.php` 추가
+```php
+class User extends Authenticatable implements JWTSubject
+{
+public function getJWTIdentifier(): mixed
+    {
+        // TODO: Implement getJWTIdentifier() method.
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        // TODO: Implement getJWTCustomClaims() method.
+        return [];
+    }
+}
+```
+
 ---
 
 ## 🚀 API 사용 방법
