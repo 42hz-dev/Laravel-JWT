@@ -36,8 +36,17 @@ return Application::configure(basePath: dirname(__DIR__))
 
 ### ✅ Step 4: `config/auth.php` 수정
 ```php
+'defaults' => [
+    'guard' => env('AUTH_GUARD', 'api'),
+    'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+],
+
 'guards' => [
         'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
@@ -60,6 +69,10 @@ public function getJWTIdentifier(): mixed
         return [];
     }
 }
+```
+### ✅ Step 6: `.env` 추가
+```php
+AUTH_GARD=api
 ```
 
 ---
